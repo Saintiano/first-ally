@@ -32,6 +32,8 @@ dependencies:
 
   get: ^4.3.8
   font_awesome_flutter: ^9.1.0
+  getwidget: ^2.0.4
+  persistent_bottom_nav_bar: ^4.0.2
 
 
   # The following adds the Cupertino Icons font to your application.

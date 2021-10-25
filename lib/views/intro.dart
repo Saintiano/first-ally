@@ -21,14 +21,14 @@ class _IntroState extends State<Intro> {
   int _start = 4;
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
           (Timer timer) {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Get.to(Login());
+            Get.to(()=> const Login());
           });
         } else {
           setState(() {

@@ -1,3 +1,4 @@
+import 'package:firstallytestappplication/components/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -162,7 +163,7 @@ class _LoginState extends State<Login> {
                           ),
                           GestureDetector(
                             onTap:(){
-                              Get.to(Foregot_Password());
+                              Get.to(()=> const Foregot_Password());
                             },
                             child: const Text("Forgot Password?",
                               textAlign: TextAlign.left,
@@ -180,7 +181,7 @@ class _LoginState extends State<Login> {
                               minWidth: double.infinity,
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.to(Dashboard());
+                                  Get.to(()=> const Bottom_Nav_Bar());
                                 },
                                 child: Container(
                                     height: 50,
@@ -212,7 +213,7 @@ class _LoginState extends State<Login> {
                 ),
                 GestureDetector(
                   onTap: (){
-                    Get.to(Create_Account());
+                    Get.to(()=> const Create_Account());
                   },
                   child: const Text("New User? Create a new account",
                     textAlign: TextAlign.left,

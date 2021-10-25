@@ -1,7 +1,10 @@
+import 'package:firstallytestappplication/components/make_transaction.dart';
 import 'package:firstallytestappplication/components/network_image.dart';
 import 'package:firstallytestappplication/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'transaction_history.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -37,7 +40,9 @@ class _DashboardState extends State<Dashboard> {
               Icons.arrow_back,
               color: Colors.green,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
         ),
         title: const Text(
@@ -69,72 +74,80 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      child: Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 30),
-                            padding: EdgeInsets.all(5),
-                            width: 140,
-                            height: 25,
-                            decoration: const BoxDecoration(
-                                color: Colors.purple,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(100),
-                                    bottomRight: Radius.circular(100),
-                                    topRight: Radius.circular(100),
-                                    topLeft: Radius.circular(100)
-                                )
-                            ),
-                            child: const Center(
-                              child:  Text("Available Balance",
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.white
+                      width: double.infinity,
+                      height: 180,
+                      decoration: const BoxDecoration(
+                          color: Colors.blueAccent,
+                      ),
+                      child: Column(
+                        children: [
+                          Center(
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 40),
+                                padding: const EdgeInsets.all(5),
+                                width: 140,
+                                height: 25,
+                                decoration: const BoxDecoration(
+                                    color: Colors.purple,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(100),
+                                        bottomRight: Radius.circular(100),
+                                        topRight: Radius.circular(100),
+                                        topLeft: Radius.circular(100)
+                                    )
                                 ),
-                              ),
-                            ),
-                          )
-                      ),
-                    ),
-                    Container(
-                      child: Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 0),
-                            padding: const EdgeInsets.all(5),
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(100),
-                                    bottomRight: Radius.circular(100),
-                                    topRight: Radius.circular(100),
-                                    topLeft: Radius.circular(100)
+                                child: const Center(
+                                  child:  Text("Available Balance",
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                ),
+                              )
+                          ),
+                          Container(
+                            child: Center(
+                                child: Container(
+                                    margin: const EdgeInsets.only(top: 0),
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(100),
+                                            bottomRight: Radius.circular(100),
+                                            topRight: Radius.circular(100),
+                                            topLeft: Radius.circular(100)
+                                        )
+                                    ),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: const [
+                                          Text("120,000,000",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text("Naira",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
                                 )
                             ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text("120,000,000",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text("Naira",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          )
-                      ),
+                          ),
+                        ],
+                      )
                     ),
-
                   ],
                 ),
                 Container(
@@ -233,6 +246,12 @@ class _DashboardState extends State<Dashboard> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(0.0),
+              ),
+              child: Row(
+                children: const [
+                  Make_Transaction(),
+                  Transaction_History()
+                ],
               ),
             ),
           ],
