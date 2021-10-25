@@ -77,7 +77,21 @@ class _DashboardState extends State<Dashboard> {
                       width: double.infinity,
                       height: 180,
                       decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Colors.blue,
+                              Colors.red,
+                            ],
+                          ),
                           color: Colors.blueAccent,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(0),
+                              topLeft: Radius.circular(0)
+                          )
                       ),
                       child: Column(
                         children: [
@@ -88,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
                                 width: 140,
                                 height: 25,
                                 decoration: const BoxDecoration(
-                                    color: Colors.purple,
+                                    color: Colors.black26,
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(100),
                                         bottomRight: Radius.circular(100),
@@ -158,10 +172,10 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           Container(
                             padding: const EdgeInsets.all(8.0),
-                            margin: const EdgeInsets.only(top: 16.0),
+                            margin: const EdgeInsets.only(top: 20.0),
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(20.0)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -228,23 +242,21 @@ class _DashboardState extends State<Dashboard> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 image: DecorationImage(
                                     image: NetworkImage(image), fit: BoxFit.cover)),
-                            margin: const EdgeInsets.only(left: 16.0),
+                            margin: const EdgeInsets.only(left: 16.0, bottom: 36),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20.0),
-
                     ],
                   ),
                 ),
-                const SizedBox(height: 20.0),
               ],
             ),
             Container(
+              margin: const EdgeInsets.only(right: 5, left: 5),
               height: 150,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(0.0),
               ),
               child: Row(
@@ -259,4 +271,5 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
 }
