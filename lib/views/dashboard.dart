@@ -1,10 +1,11 @@
+import 'package:firstallytestappplication/components/history_tap.dart';
 import 'package:firstallytestappplication/components/make_transaction.dart';
 import 'package:firstallytestappplication/components/network_image.dart';
 import 'package:firstallytestappplication/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'transaction_history.dart';
+import '../components/transaction_history.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
         title: const Text(
           "Dashboard",
           style: TextStyle(
-              fontSize: 20,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.black38
           ),
@@ -219,6 +220,11 @@ class _DashboardState extends State<Dashboard> {
                                         ],
                                       ),
                                     ),
+                                    const VerticalDivider(
+                                      width: 10.0,
+                                      thickness: 20,
+                                      color: Colors.black,
+                                    ),
                                     Expanded(
                                       child: Column(
                                         children: const <Widget>[
@@ -266,6 +272,7 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
+            History_Tap(),
           ],
         )
       ),

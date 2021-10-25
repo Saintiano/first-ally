@@ -1,18 +1,18 @@
 import 'package:firstallytestappplication/constants/styles.dart';
-import 'package:firstallytestappplication/views/transaction_request.dart';
+import 'package:firstallytestappplication/views/transactions_history.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 
-class Make_Transaction extends StatefulWidget {
-  const Make_Transaction({Key? key}) : super(key: key);
+class Transaction_History extends StatefulWidget {
+  const Transaction_History({Key? key}) : super(key: key);
 
   @override
-  _Make_TransactionState createState() => _Make_TransactionState();
+  _Transaction_HistoryState createState() => _Transaction_HistoryState();
 }
 
-class _Make_TransactionState extends State<Make_Transaction> {
+class _Transaction_HistoryState extends State<Transaction_History> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -22,7 +22,7 @@ class _Make_TransactionState extends State<Make_Transaction> {
             margin: const EdgeInsets.only(top: 5, bottom: 0, left: 0),
             child: GestureDetector(
               onTap: () async {
-                Get.to( () => const Transaction_Request());
+                Get.to(() => const TRansaction_History());
               },
               child: Column(
                 children: [
@@ -37,7 +37,7 @@ class _Make_TransactionState extends State<Make_Transaction> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                               image: const AssetImage(
-                                  "assets/images/money-exchange.png"),
+                                  "assets/images/bill.png"),
                               colorFilter: ColorFilter.mode(
                                   Colors.black.withOpacity(0.1),
                                   BlendMode.dstATop),
@@ -66,7 +66,7 @@ class _Make_TransactionState extends State<Make_Transaction> {
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                               image: const AssetImage(
-                                                  "assets/images/money-exchange.png"),
+                                                  "assets/images/bill.png"),
                                               colorFilter: ColorFilter.mode(
                                                   Colors.black.withOpacity(0.0),
                                                   BlendMode.dstATop),
@@ -78,7 +78,7 @@ class _Make_TransactionState extends State<Make_Transaction> {
                                         height: 45,
                                         width: 45,
                                         child: Image.asset(
-                                          "assets/images/money-exchange.png",
+                                          "assets/images/bill.png",
                                         )
                                     ),
                                   ),
@@ -92,7 +92,7 @@ class _Make_TransactionState extends State<Make_Transaction> {
                               alignment: Alignment.centerLeft,
                               margin: const EdgeInsets.only(left: 16, top: 3, bottom: 3),
                               child: const Text(
-                                "MAKE TRANSACTIONS",
+                                "TRANSACTIONS HISTORY",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     color: Colors.white70,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TRansaction_History extends StatefulWidget {
   const TRansaction_History({Key? key}) : super(key: key);
@@ -21,6 +22,42 @@ class _TRansaction_HistoryState extends State<TRansaction_History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 1,
+        leading: GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.green,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ),
+        title: const Text(
+          "Transaction history",
+          style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: Colors.black38
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.green,
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Container(
           height: double.infinity,
           width: double.infinity,
