@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "405573052608",
+    "project_id": "first-ally-test-app",
+    "storage_bucket": "first-ally-test-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405573052608:android:6839f48a357ef620bd6525",
+        "android_client_info": {
+          "package_name": "clovisokonkwo.com.firstallytestappplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405573052608-ggivs6nkr89cdq2c2um742pgtnra376p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "clovisokonkwo.com.firstallytestappplication",
+            "certificate_hash": "f9a8225409ded3efd342d95a552975fdb060126c"
+          }
+        },
+        {
+          "client_id": "405573052608-76c96ss4a2i50qrrmit070eier9e55vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGGI5hjrWXQ4qV7R4AiHOXZgi4LNcZ4Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405573052608-76c96ss4a2i50qrrmit070eier9e55vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

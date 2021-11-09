@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstallytestappplication/components/history_tap.dart';
 import 'package:firstallytestappplication/components/make_transaction.dart';
 import 'package:firstallytestappplication/components/network_image.dart';
 import 'package:firstallytestappplication/constants/images.dart';
+import 'package:firstallytestappplication/controller/firebase_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,17 +18,64 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  static final String path = "lib/src/pages/profile/profile3.dart";
-  final image = avatars[1];
+  Firebase_Controller controller = Firebase_Controller();
+  final firestoreInstance = FirebaseFirestore.instance;
 
-  late TextEditingController _escalation_additional_comment;
+  var profile_uid = "";
+  var profile_email = "";
+  var profile_username = "";
+  var profile_name = "";
+  var profile_photoUrl = "";
+
+  var profile_company = "";
+  var profile_position = "";
+  var profile_phone_number = "";
+  var profile_date_of_registration = "";
+
+  var profile_active = "";
+
+  var profile_state = "";
+  var profile_address = "";
+  var profile_gender = "";
+
+  var total_number_transactions = "";
+  var total_amount = "";
+
+
 
   @override
   void initState() {
+    getUserData();
+    // TODO: implement initState
     super.initState();
-    _escalation_additional_comment = TextEditingController();
   }
 
+  void getUserData() {
+    var firebaseUser =  FirebaseAuth.instance.currentUser;
+    firestoreInstance.collection("User_Profiles").doc(firebaseUser!.uid).get().then((value){
+
+      setState(() {
+        profile_name = value.data()!["name"];
+        profile_photoUrl = value.data()!["photoUrl"];
+        profile_email = value.data()!["email"];
+        profile_username = value.data()!["username"];
+
+        profile_company = value.data()!["company"];
+        profile_position = value.data()!["position"];
+        profile_phone_number = value.data()!["phone_number"];
+        profile_date_of_registration = value.data()!["date_of_registration"];
+        profile_active = value.data()!["active"];
+
+        profile_state  = value.data()!["state"];
+        profile_address  = value.data()!["address"];
+        profile_gender  = value.data()!["gender"];
+
+        total_amount = value.data()!["total_amount"];
+        total_number_transactions = value.data()!["total_number_transactions"];
+      });
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +118,7 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.grey.shade300,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: <Widget>[
@@ -138,17 +189,17 @@ class _DashboardState extends State<Dashboard> {
                                     child: Center(
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
-                                        children: const [
-                                          Text("120,000,000",
-                                            style: TextStyle(
+                                        children:[
+                                          Text(total_amount,
+                                            style:  const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
-                                          Text("Naira",
+                                          const Text("Naira",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20,
@@ -184,11 +235,16 @@ class _DashboardState extends State<Dashboard> {
                                   margin: const EdgeInsets.only(left: 96.0),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[
+                                    children:  <Widget>[
                                       ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text("Full Name : "),
-                                        subtitle: Text("Username : "),
+                                        contentPadding: const EdgeInsets.all(0),
+                                        title: Text(profile_name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18
+                                          ),
+                                        ),
+                                        subtitle: Text(profile_username),
                                       ),
                                     ],
                                   ),
@@ -207,16 +263,17 @@ class _DashboardState extends State<Dashboard> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Column(
-                                        children: const <Widget>[
-                                          Text("285",
-                                            style: TextStyle(
-
+                                        children: <Widget>[
+                                          Text(total_number_transactions,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
-                                          Text("Total Transactions")
+                                          const Text("Total Transactions")
                                         ],
                                       ),
                                     ),
@@ -227,12 +284,12 @@ class _DashboardState extends State<Dashboard> {
                                     ),
                                     Expanded(
                                       child: Column(
-                                        children: const <Widget>[
-                                          Text("650"),
-                                          SizedBox(
+                                        children:  <Widget>[
+                                          Text(total_amount),
+                                          const SizedBox(
                                             height: 5,
                                           ),
-                                          Text("Total Amounts")
+                                          const Text("Total Amounts")
                                         ],
                                       ),
                                     ),
@@ -247,7 +304,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 image: DecorationImage(
-                                    image: NetworkImage(image), fit: BoxFit.cover)),
+                                    image: NetworkImage(profile_photoUrl), fit: BoxFit.cover)),
                             margin: const EdgeInsets.only(left: 16.0, bottom: 36),
                           ),
                         ],
@@ -272,7 +329,40 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-            History_Tap(),
+            Container(
+              margin: const EdgeInsets.only(top: 15, bottom: 0, left: 10),
+              child: const Text("Recent Transactions",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.deepPurple
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Colors.red,
+                      Colors.blue,
+                    ],
+                  ),
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topRight: Radius.circular(15),
+                      topLeft: Radius.circular(15)
+                  )
+              ),
+              height: 400,
+              width: double.infinity,
+              child: const History_Tap(),
+            )
           ],
         )
       ),

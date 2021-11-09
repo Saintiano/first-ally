@@ -1,11 +1,12 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstallytestappplication/components/network_image.dart';
-import 'package:firstallytestappplication/constants/images.dart';
 import 'package:firstallytestappplication/controller/firebase_controller.dart';
-import 'package:firstallytestappplication/profile/edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'edit_profile.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   Firebase_Controller controller = Firebase_Controller();
   final firestoreInstance = FirebaseFirestore.instance;
 
@@ -29,15 +31,21 @@ class _ProfileState extends State<Profile> {
   var profile_phone_number = "";
   var profile_date_of_registration = "";
 
+  var profile_total_hours_worked = "";
+  var profile_total_revenue_generated = "";
   var profile_active = "";
 
   var profile_state = "";
   var profile_address = "";
   var profile_gender = "";
-
-  var total_number_transactions = "";
-  var total_amount = "";
-
+  var profile_billable_rate = "";
+  var profile_project_name = "";
+  var profile_date_created = "";
+  var profile_date_worked = "";
+  var profile_time_started = "";
+  var profile_time_finished = "";
+  var profile_total_time_worked = "";
+  var profile_revenue_generated = "";
 
 
   @override
@@ -61,14 +69,27 @@ class _ProfileState extends State<Profile> {
         profile_position = value.data()!["position"];
         profile_phone_number = value.data()!["phone_number"];
         profile_date_of_registration = value.data()!["date_of_registration"];
+
+        profile_total_hours_worked = value.data()!["total_hours_worked"];
+        profile_total_revenue_generated = value.data()!["total_revenue_generated"];
         profile_active = value.data()!["active"];
 
         profile_state  = value.data()!["state"];
         profile_address  = value.data()!["address"];
         profile_gender  = value.data()!["gender"];
 
-        total_amount = value.data()!["total_amount"];
-        total_number_transactions = value.data()!["total_number_transactions"];
+        profile_billable_rate  = value.data()!["billable_rate"];
+        profile_project_name  = value.data()!["project_name"];
+        profile_date_created  = value.data()!["date_created"];
+        profile_date_worked  = value.data()!["date_worked"];
+        profile_time_started  = value.data()!["time_started"];
+        profile_time_finished = value.data()!["time_finished"];
+        profile_total_time_worked = value.data()!["total_time_worked"];
+        profile_revenue_generated = value.data()!["revenue_generated"];
+
+        profile_uid = value.data()!["uid"];
+        controller.email.text = value.data()!["email"];
+        controller.username.text = value.data()!["username"];
       });
 
     });
@@ -174,23 +195,23 @@ class _ProfileState extends State<Profile> {
                               children: <Widget>[
                                 Expanded(
                                   child: Column(
-                                    children: <Widget>[
-                                      Text(total_number_transactions,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold
+                                    children: const <Widget>[
+                                      Text("285",
+                                        style: TextStyle(
+
                                         ),
                                       ),
-                                      const SizedBox(
+                                      SizedBox(
                                         height: 5,
                                       ),
-                                      const Text("Total Transactions")
+                                      Text("Total Projects")
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Text(total_amount,
+                                      Text(profile_total_hours_worked,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold
                                         ),
@@ -198,7 +219,7 @@ class _ProfileState extends State<Profile> {
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      const Text("Total Amount")
+                                      const Text("Total Time")
                                     ],
                                   ),
                                 ),
@@ -254,7 +275,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           subtitle: Text(profile_phone_number,
                             style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.bold,
 
                             ),
                           ),

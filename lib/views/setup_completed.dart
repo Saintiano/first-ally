@@ -1,18 +1,56 @@
-import 'package:firstallytestappplication/components/rounded_back_button.dart';
-import 'package:firstallytestappplication/components/verified_design.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firstallytestappplication/components/bottom_nav_bar.dart';
 import 'package:firstallytestappplication/controller/firebase_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Foregot_Password extends StatefulWidget {
-  const Foregot_Password({Key? key}) : super(key: key);
+import 'create_account.dart';
+
+class Setup_Completed extends StatefulWidget {
+  const Setup_Completed({Key? key}) : super(key: key);
 
   @override
-  _Foregot_PasswordState createState() => _Foregot_PasswordState();
+  _Setup_CompletedState createState() => _Setup_CompletedState();
 }
 
-class _Foregot_PasswordState extends State<Foregot_Password> {
+class _Setup_CompletedState extends State<Setup_Completed> {
 
   Firebase_Controller controller = Firebase_Controller();
+
+  final firestoreInstance = FirebaseFirestore.instance;
+
+  var profile_uid = "";
+  var profile_email = "";
+  var profile_username = "";
+  var profile_name = "";
+  var profile_photoUrl = "";
+
+
+  @override
+  void initState() {
+    getUserData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void getUserData() {
+    var firebaseUser =  FirebaseAuth.instance.currentUser;
+    firestoreInstance.collection("User_Profiles").doc(firebaseUser!.uid).get().then((value){
+
+      setState(() {
+        profile_name = value.data()!["name"];
+        profile_photoUrl = value.data()!["photoUrl"];
+        profile_email = value.data()!["email"];
+        profile_username = value.data()!["username"];
+        profile_uid = value.data()!["uid"];
+        controller.email.text = value.data()!["email"];
+        controller.username.text = value.data()!["username"];
+      });
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +61,10 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
           decoration: const BoxDecoration(
               gradient:LinearGradient(
                   colors: [
-                    Color(0xFF4e3789),
-                    Color(0xFF281261),
-                    Color(0xFF281261),
-                    Color(0xFF281261)
+                    Color(0xFF1e0f60),
+                    Color(0xFF1e0f50),
+                    Color(0xFF1e0f50),
+                    Color(0xFF1e0f50)
                     //add more colors for gradient
                   ],
                   begin: Alignment.topRight, //begin of the gradient color
@@ -41,23 +79,13 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
           ),
           child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Rounded_Back_Buttton(),
+
                   const SizedBox(
-                    height: 20,
+                    height: 100,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, left: 45, bottom: 10),
-                    child: Text("Reset your password",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
+
                   Center(
                       child: Container(
                         margin: const EdgeInsets.all(20),
@@ -82,12 +110,17 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                 children: [
                                   Center(
                                     child: Column(
-                                      children: const [
-                                        Verified_Design(),
-                                        SizedBox(
+                                      children:  [
+                                        CircleAvatar(
+                                          radius: 60,
+                                          backgroundImage:
+                                          NetworkImage(
+                                            profile_photoUrl,),
+                                        ),
+                                        const SizedBox(
                                           height: 30,
                                         ),
-                                        Text("We will send a password reset link to your email",
+                                        const Text("Thanks for completing your registration",
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontSize: 14,
@@ -95,9 +128,34 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                             fontWeight: FontWeight.normal,
                                           ),
                                         ),
-                                        Text("Please your the email you created your account with",
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Full Name : " + profile_name ,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Username : " + profile_username,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Email Address: " + profile_email ,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             color: Colors.black87,
                                             fontWeight: FontWeight.normal,
@@ -111,44 +169,18 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                     height: 50,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      TextField(
-                                        controller: controller.email,
-                                        decoration: const InputDecoration(
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.purple, width: 0.9),
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: const [
+                                      Center(
+                                        child: Text("Kindly proceed to your dashboard",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.normal,
                                           ),
-
-                                          hintStyle: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12,
-                                          ),
-                                          labelStyle: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12,
-                                          ),
-
-                                          labelText: 'Your email',
                                         ),
-                                        onSubmitted: (String value) async {
-                                          await showDialog<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: const Text('Thanks!'),
-                                                content: Text ('You typed "$value", which has length ${value.characters.length}.'),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () { Navigator.pop(context); },
-                                                    child: const Text('OK'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
+                                      )
 
                                     ],
                                   ),
@@ -161,7 +193,7 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                       minWidth: double.infinity,
                                       child: GestureDetector(
                                         onTap: () {
-                                          controller.sendPasswordResetEmail(controller.email.text);
+                                          Get.to(()=> const Bottom_Nav_Bar());
                                         },
                                         child: Container(
                                             height: 50,
@@ -183,7 +215,7 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                               ),
                                             ),
                                             child: const  Center(
-                                              child: Text("RESET PASSWORD",
+                                              child: Text("PROCEED",
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12,
@@ -196,26 +228,6 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
                                       )
                                   ),
 
-                                  Center(
-                                    child: Column(
-                                      children: const [
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text("This email will expire in 10 minutes",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -232,5 +244,4 @@ class _Foregot_PasswordState extends State<Foregot_Password> {
       ),
     );
   }
-
 }
